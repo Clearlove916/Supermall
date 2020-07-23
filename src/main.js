@@ -16,7 +16,9 @@ Vue.prototype.$bus=new Vue()
 Vue.use(Toast)
 
 //图片懒加载
-Vue.use(VueLazyload)
+Vue.use(VueLazyload,{
+  loading:require('./assets/img/common/load.png')
+})
 
 Fastclick.attach(document.body)
 
