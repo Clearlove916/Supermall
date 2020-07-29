@@ -139,11 +139,6 @@
   }
 </script>
 <style scoped>
-  .homeNavBar{
-    background-color: pink;
-    text-align: center;
-    color: white;
-  }
   #home{
     height: 100vh;
     position: relative;

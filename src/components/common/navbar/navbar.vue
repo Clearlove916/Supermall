@@ -16,6 +16,10 @@
     display: flex;
     line-height: 44px;
     box-shadow: 0 1px 2px rgb(100, 100, 100,.1);
+    background-color:  #FF5577;
+    text-align: center;
+    color: white;
+    font-weight: bold;
   }
   .left,.right{
     width: 60px;

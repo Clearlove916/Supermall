@@ -46,10 +46,4 @@ import {mapGetters} from 'vuex'
   .Car{
     height: 100vh;
   }
-  .shopNavBar{
-    background-color: pink;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-  }
 </style>
