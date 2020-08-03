@@ -23,7 +23,7 @@
     },
     computed: {
       showImage(){
-        return this.goodsItem.image || this.goodsItem.show.img;
+        return this.goodsItem.image || this.goodsItem.img;
       }
     },
     methods: {
@@ -61,7 +61,7 @@
   .goodsInfoo{
     margin-top: 5px;
     position: relative;
-    height: 70px;
+    height: 80px;
     font-size: 12px;
     left: 0;
     width: 100%;

@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+// 以下接口地址不是正确的。获取接口地址请加微信coderwhy003
+
 export function request(urlbaseConfig){
   const Netquery=axios.create({
-    baseURl:'http://152.136.185.210:8000/api/n3',
+    baseURl:'http://111.136.185.210:8000/api/z8',
     timeout:5000
   })
 

@@ -1,6 +1,8 @@
 import {request} from './request.js'
 import axios from 'axios'
 
+// 以下接口地址不是正确的。获取接口地址请加微信coderwhy003
+
 // export function getHomeMultidata(){
 //   return request({
 //     url:'/home/multidata'
@@ -8,7 +10,7 @@ import axios from 'axios'
 // }
 export function getHomeMultidata(){
   return axios({
-      url:'http://152.136.185.210:8000/api/n3/home/multidata',
+      url:'http://111.136.185.210:8000/api/z8/home/multidata',
     })
 }
 
@@ -24,7 +26,7 @@ export function getHomeMultidata(){
 
 export function getHomeGoods(type,page){
   return axios({
-      url:'http://152.136.185.210:8000/api/n3/home/data',
+      url:'http://111.136.185.210:8000/api/z8/home/data',
       params:{
         type,
         page

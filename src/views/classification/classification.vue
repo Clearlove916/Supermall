@@ -4,110 +4,13 @@
       <div slot="center">商品分类</div>
     </nav-bar>
     <div class="content">
-      <type-bar @typeSelect="typeSelect"></type-bar>
-      <scroll ref="scroll" class="typeContent">
-        <ul>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-          <li>111</li>
-        </ul>
+      <scroll ref="scroll" class="typeBarScroll">
+        <type-bar ref="typeList" :typeList="typeList"
+         @typeSelect="typeSelect"></type-bar>
+      </scroll>  
+      <scroll ref="scroll" class="typeContentScroll">
+        <recommend-class :detailType="detailType"></recommend-class>
+        <goods-list class="goodsList" :goods="goodsList"></goods-list>
       </scroll>
     </div>
   </div>
@@ -118,16 +21,55 @@
 
   import TypeBar from 'components/content/typeBar/typeBar.vue'
 
+  import GoodsList from 'components/content/goods/goodsList.vue'
+
+  import RecommendClass from './childCompons/recommendClass.vue'
+
+  import {getInitialInfo,getClassInfo,getClassDetail} from 'network/classification.js' 
+
   export default{
     name:'Classification',
+    data() {
+      return {
+        typeList:[],
+        detailType:[],
+        goodsList:[]
+      }
+    },
     components:{
       NavBar,
       TypeBar,
-      Scroll
+      Scroll,
+      RecommendClass,
+      GoodsList
+    },
+    created() {
+      this.getInitialInfo();
     },
     methods: {
-      typeSelect(typeName){
-        console.log(typeName);
+      typeSelect(maitKey,miniWallkey){
+        this.goodsList=[];
+        getClassInfo(maitKey).then(res=>{
+          const detailType=res.data.data.list;
+          this.detailType=detailType;
+        }),
+        this.getClassDetail(miniWallkey,"pop");
+        this.getClassDetail(miniWallkey,"new");
+        this.getClassDetail(miniWallkey,"sell");
+      },
+      getInitialInfo(){
+        getInitialInfo().then(res=>{
+          const typeList=res.data.data.category.list;
+          this.typeList=typeList;
+          this.firstTypeMaitKey=typeList[0].maitKey;
+        }) 
+      },
+      getClassDetail(miniWallkey,type){
+        getClassDetail(miniWallkey,type).then(res=>{
+          res.data.forEach(item=>{
+            this.goodsList.push(item);
+          })
+        })
       }
     },
   }
@@ -136,7 +78,11 @@
   .content{
     display: flex;
   }
-  .typeContent{
+  .typeBarScroll{
+    height: calc(100vh - 49px - 44px);
+    overflow: hidden;
+  }
+  .typeContentScroll{
     width: calc(100vw - 80px);
     height: calc(100vh - 49px - 44px);
     overflow: hidden;

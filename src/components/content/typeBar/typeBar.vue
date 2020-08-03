@@ -2,8 +2,8 @@
   <div class="typeBar">
     <ul>
       <li v-for="(item,index) in typeList" :class="{isSelect:isSelectIndex===index}"
-       @click="typeLiClick(index,item)">
-        {{item}}
+       @click="typeLiClick(index,item.maitKey,item.miniWallkey)" :key="index">
+        {{item.title}}
       </li>
     </ul>
   </div>
@@ -13,16 +13,29 @@
     name:'TypeBar',
     data() {
       return {
-        typeList:['正在流行','上衣','裤子','裙子','内衣',
-        '女鞋','男友','包包','运动','配饰','美妆','个护','家具'],
+        // typeList:['正在流行','上衣','裤子','裙子','内衣',
+        // '女鞋','男友','包包','运动','配饰','美妆','个护','家具'],
         isSelectIndex:0
       }
     },
-    methods: {
-      typeLiClick(index,item){
-        this.isSelectIndex=index;
-        this.$emit("typeSelect",item);
+    props:{
+      typeList:{
+        type:Array,
+        default(){
+          return [];
+        }
       }
+    },
+    mounted() { 
+      setTimeout(()=>{
+        this.typeLiClick(0,this.typeList[0].maitKey,this.typeList[0].miniWallkey);
+      },200)
+    },
+    methods: {
+      typeLiClick(index,maitKey,miniWallkey){
+        this.isSelectIndex=index;
+        this.$emit("typeSelect",maitKey,miniWallkey);
+      },
     },
   }
 </script>
@@ -32,7 +45,6 @@
     width: 80px;
   }
   .typeBar ul{
-    height: calc(100vh - 49px - 44px);
     list-style: none;
     padding: 0;
     margin: 0;

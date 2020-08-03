@@ -1,6 +1,9 @@
 import {request} from './request.js'
 import axios from 'axios'
 
+
+// 以下接口地址不是正确的。获取接口地址请加微信coderwhy003
+
 // export function DetailRequest(iid){
 //   return request({
 //     url:'/detail',
@@ -11,7 +14,7 @@ import axios from 'axios'
 // }
 export function DetailRequest(iid){
   return axios({
-    url:'http://152.136.185.210:8000/api/n3/detail',
+    url:'http://111.136.185.210:8000/api/z8/detail',
     params:{
       iid
     }
@@ -26,7 +29,7 @@ export function DetailRequest(iid){
 
 export function GetRecommend(){
   return axios({
-    url:'http://152.136.185.210:8000/api/n3/recommend'
+    url:'http://152.136.185.210:8000/api/z8/recommend'
   })
 }
 
